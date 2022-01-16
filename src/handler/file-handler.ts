@@ -3,12 +3,12 @@ import {fileConverterService} from '../service/file-converter-service'
 
 export const postController = async(request:any, response:any)=>{
       
-     const fileDetails = request.body.fileDetails.base
-     console.log(fileDetails)
+      const fileDetails = request.body.fileDetails.base
       const fileType =request.body.fileDetails.fileType
-      const convertType = request.body.convertType
-      const result = await fileConverterService.converter(fileDetails)
+      const targetType = request.body.fileDetails.targetType
+      const fileName = request.body.fileDetails.fileName
+      console.log(fileName)
+      const result = await fileConverterService.converter(fileDetails, fileType, targetType, fileName)
       response.send(result)
       
-     
 }

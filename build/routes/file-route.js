@@ -36,7 +36,10 @@ const todo = {
         fileDetails: {
             type: 'object',
             properties: {
-                base: { type: "string" }
+                base: { type: "string" },
+                fileName: { type: "string" },
+                fileType: { type: "string" },
+                targetType: { type: "string" },
             },
         },
     },
@@ -54,7 +57,7 @@ const putFileOpt = {
 };
 function fileRoute(fastify, options, done) {
     fastify.post('/files', putFileOpt, (request, response) => __awaiter(this, void 0, void 0, function* () {
-        //console.log("in route",request.body)
+        console.log("in route", request.body);
         yield fileHanlder.postController(request, response);
     }));
     done();

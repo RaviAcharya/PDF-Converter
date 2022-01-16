@@ -8,7 +8,10 @@ const todo = {
     fileDetails: {
       type : 'object',
       properties : {
-        base : {type :"string"}
+        base : {type :"string"},
+        fileName : {type : "string"},
+        fileType : {type : "string"},
+        targetType : {type : "string"},
     },
     },
   },
@@ -29,7 +32,7 @@ const putFileOpt = {
  export function fileRoute(fastify:any, options:any, done:any){
 
      fastify.post('/files',putFileOpt, async(request:FastifyRequest, response:FastifyReply)=>{
-       //console.log("in route",request.body)
+       console.log("in route",request.body)
          await fileHanlder.postController(request, response)
      })
      done()

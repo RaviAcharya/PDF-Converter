@@ -15,11 +15,13 @@ const fs = require('fs').promises;
 const libre = require('libreoffice-convert');
 libre.convertAsync = require('util').promisify(libre.convert);
 class FileConverterService {
-    converter(fileDetails) {
+    converter(fileDetails, fileType, targetType, fileName) {
         return __awaiter(this, void 0, void 0, function* () {
-            const ext = '.pdf';
+            const ext = targetType;
+            console.log(targetType);
             const fileBuffer = Buffer.from(fileDetails, 'base64');
-            const outputPath = path.join("/home/exathought/DOcs/NextJsDocs/ConvertedPDF", `BaseSixtyFour${ext}`);
+            console.log("name", fileName);
+            const outputPath = path.join("/home/exathought/DOcs/NextJsDocs/ConvertedPDF", `${fileName + ext}`);
             let pdfBuf = yield libre.convertAsync(fileBuffer, ext, undefined);
             yield fs.writeFile(outputPath, pdfBuf);
             return pdfBuf;

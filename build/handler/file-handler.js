@@ -13,10 +13,11 @@ exports.postController = void 0;
 const file_converter_service_1 = require("../service/file-converter-service");
 const postController = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     const fileDetails = request.body.fileDetails.base;
-    console.log(fileDetails);
     const fileType = request.body.fileDetails.fileType;
-    const convertType = request.body.convertType;
-    const result = yield file_converter_service_1.fileConverterService.converter(fileDetails);
+    const targetType = request.body.fileDetails.targetType;
+    const fileName = request.body.fileDetails.fileName;
+    console.log(fileName);
+    const result = yield file_converter_service_1.fileConverterService.converter(fileDetails, fileType, targetType, fileName);
     response.send(result);
 });
 exports.postController = postController;
