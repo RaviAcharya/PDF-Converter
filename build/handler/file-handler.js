@@ -12,12 +12,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.postController = void 0;
 const file_converter_service_1 = require("../service/file-converter-service");
 const postController = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-    const fileDetails = request.body.fileDetails.base;
-    const fileType = request.body.fileDetails.fileType;
-    const targetType = request.body.fileDetails.targetType;
-    const fileName = request.body.fileDetails.fileName;
-    console.log(fileName);
-    const result = yield file_converter_service_1.fileConverterService.converter(fileDetails, fileType, targetType, fileName);
+    const fileData = request.body;
+    // const fileType =request.body.fileDetails.fileType
+    // const targetType = request.body.fileDetails.targetType
+    // const fileName = request.body.fileDetails.fileName
+    // console.log(fileName)
+    //const result = await fileConverterService.converter(fileDetails.base as string, fileType, targetType, fileName)
+    // response.send(result)
+    const fileDataValue = fileData;
+    const baseContent = fileDataValue.fileDetails.base;
+    const fileNameValue = fileDataValue.fileDetails.fileName;
+    const fileTypevalue = fileDataValue.fileDetails.fileType;
+    const targetTypevalue = fileDataValue.fileDetails.targetType;
+    const result = yield file_converter_service_1.fileConverterService.converter(baseContent, fileTypevalue, targetTypevalue, fileNameValue);
     response.send(result);
 });
 exports.postController = postController;
