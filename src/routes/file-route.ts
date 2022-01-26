@@ -1,6 +1,6 @@
 import { FastifyBodyParser, FastifyReply, FastifyRequest, RouteShorthandOptions } from "fastify";
 import * as fileHanlder from '../handler/file-handler'
-import {FromSchema} from "json-schema-to-ts"
+
 
 const todo = {
     type: 'object',
@@ -13,9 +13,10 @@ const todo = {
         fileType : {type : "string"},
         targetType : {type : "string"},
     },
+    required : ["base","fileName","fileType","targetType"]
     },
   },
-  required: ["fileDetails"],
+  required : ["fileDetails"]
 } as const;
 
 const putFileOpt = {
@@ -30,10 +31,11 @@ const putFileOpt = {
 }
 
  export function fileRoute(fastify:any, options:any, done:any){
-
      fastify.post('/files',putFileOpt, async(request:FastifyRequest, response:FastifyReply)=>{
-       console.log("in route",request.body)
-         await fileHanlder.postController(request, response)
+       console.log("here")
+       const result =  await fileHanlder.postController(request, response)
+       console.log("result", result)
+       response.send(result)
      })
      done()
  }

@@ -41,9 +41,10 @@ const todo = {
                 fileType: { type: "string" },
                 targetType: { type: "string" },
             },
+            required: ["base", "fileName", "fileType", "targetType"]
         },
     },
-    required: ["fileDetails"],
+    required: ["fileDetails"]
 };
 const putFileOpt = {
     schema: {
@@ -57,8 +58,10 @@ const putFileOpt = {
 };
 function fileRoute(fastify, options, done) {
     fastify.post('/files', putFileOpt, (request, response) => __awaiter(this, void 0, void 0, function* () {
-        console.log("in route", request.body);
-        yield fileHanlder.postController(request, response);
+        console.log("here");
+        const result = yield fileHanlder.postController(request, response);
+        console.log("result", result);
+        response.send(result);
     }));
     done();
 }
