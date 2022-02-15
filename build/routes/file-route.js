@@ -27,35 +27,44 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fileRoute = void 0;
 const fileHanlder = __importStar(require("../handler/file-handler"));
+const cors_1 = __importDefault(require("cors"));
 const todo = {
     type: 'object',
     properties: {
         fileDetails: {
             type: 'object',
             properties: {
-                base: { type: "string" }
+                base: { type: "string" },
+                fileName: { type: "string" },
+                fileType: { type: "string" },
+                targetType: { type: "string" },
             },
+            required: ["base", "fileName", "fileType", "targetType"]
         },
     },
-    required: ["fileDetails"],
+    required: ["fileDetails"]
 };
 const putFileOpt = {
     schema: {
         body: todo,
         response: {
-            200: {
-                type: 'string',
-            },
+            200: { type: 'string' }
         },
-    }
+    },
 };
 function fileRoute(fastify, options, done) {
+    fastify.addHook("onRequest", () => __awaiter(this, void 0, void 0, function* () {
+        fastify.use((0, cors_1.default)());
+    }));
     fastify.post('/files', putFileOpt, (request, response) => __awaiter(this, void 0, void 0, function* () {
-        //console.log("in route",request.body)
-        yield fileHanlder.postController(request, response);
+        const result = yield fileHanlder.postController(request, response);
+        response.send(result);
     }));
     done();
 }

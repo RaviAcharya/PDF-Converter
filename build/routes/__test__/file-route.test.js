@@ -8,25 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const fastify_1 = __importDefault(require("fastify"));
-const file_route_1 = require("./routes/file-route");
-const fastify_express_1 = __importDefault(require("fastify-express"));
-const Port = process.env.PORT || 3000;
-const server = (0, fastify_1.default)({ logger: true });
-server.register(fastify_express_1.default);
-server.register(file_route_1.fileRoute);
-const start = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield server.listen(Port);
-        console.log('Server started successfully');
-    }
-    catch (err) {
-        server.log.error(err);
-        process.exit(1);
-    }
+const helper_1 = require("./helper");
+describe('running test for file-route', () => {
+    const app = (0, helper_1.build)();
+    test('running test for fileRoute', () => __awaiter(void 0, void 0, void 0, function* () {
+        const res = yield app.inject({
+            method: "POST",
+            url: "/files",
+            payload: { "fileDetails": {
+                    "base": "hello",
+                    "fileName": "fastify",
+                    "fileType": "jest",
+                    "targetType": "nodejs"
+                } }
+        });
+        expect(res.payload);
+    }));
 });
-start();
