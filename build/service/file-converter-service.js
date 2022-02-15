@@ -18,7 +18,6 @@ class FileConverterService {
     converter(fileDetails, fileType, targetType, fileName) {
         return __awaiter(this, void 0, void 0, function* () {
             const ext = "." + targetType;
-            //console.log(targetType)
             const fileBuffer = Buffer.from(fileDetails, 'base64');
             console.log("name", fileName);
             const outputPath = path.join("/home/exathought/DOcs/NextJsDocs/ConvertedPDF", `${fileName + ext}`);

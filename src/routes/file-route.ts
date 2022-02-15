@@ -1,6 +1,6 @@
-import { FastifyBodyParser, FastifyReply, FastifyRequest, RouteShorthandOptions } from "fastify";
+import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
 import * as fileHanlder from '../handler/file-handler'
-
+import cors from 'cors'
 
 const todo = {
     type: 'object',
@@ -23,18 +23,18 @@ const putFileOpt = {
     schema: {
         body: todo,
         response: {
-          200: {
-            type: 'string',
+          200: {type : 'string'}
           },
         },
-      }
+
 }
 
- export function fileRoute(fastify:any, options:any, done:any){
+ export function fileRoute(fastify:FastifyInstance, options:any, done:any){
+     fastify.addHook("onRequest", async()=>{
+     fastify.use(cors())    
+     })
      fastify.post('/files',putFileOpt, async(request:FastifyRequest, response:FastifyReply)=>{
-       console.log("here")
        const result =  await fileHanlder.postController(request, response)
-       console.log("result", result)
        response.send(result)
      })
      done()

@@ -6,7 +6,7 @@ describe("running test for file-handler", ()=>{
     it("running test for post controller", async ()=>{
         //let bufferData:any = [0,1,2] ;
         let request:any = {"body":{"fileDetails" : {
-            "base" : "unit test",
+            "base" : "jhwdc",
             "fileName" : "fastify",
             "fileType" : "jest",
             "targetType" : "nodejs"
@@ -17,5 +17,37 @@ describe("running test for file-handler", ()=>{
         fileConverterService.converter = jest.fn().mockResolvedValue([0,1,1,0])
         await postController(request , response)
         expect(fileConverterService.converter).toBeCalledTimes(1)
+    }),
+    it("running test for post controller", async ()=>{
+        //let bufferData:any = [0,1,2] ;
+        let request:any = {"body":{"fileDetails" : {
+            "base" : "javascript",
+            "fileName" : "fastify",
+            "fileType" : "jest",
+            "targetType" : "nodejs"
+      }}};
+        let response:any = {}
+        //let x:FastifyRequest = request as FastifyRequest
+        //let y:FastifyReply = response as FastifyReply
+        fileConverterService.converter = jest.fn().mockResolvedValue([0,1,1,0])
+        await postController(request , response)
+        expect(fileConverterService.converter).toBeCalledTimes(1)
+    }),
+     it("running test for post controller", async ()=>{
+        //let bufferData:any = [0,1,2] ;
+        let request:any = {"body":{"fileDetails" : {
+            "base" : "",
+            "fileName" : "fastify",
+            "fileType" : "jest",
+            "targetType" : "nodejs"
+      }}};
+        let response:any = {}
+        //let x:FastifyRequest = request as FastifyRequest
+        //let y:FastifyReply = response as FastifyReply
+        fileConverterService.converter = jest.fn().mockResolvedValue([0,1,1,0])
+        const res:any=await postController(request , response)
+        console.log("In here",res)
+        //expect(res.status).toBe(400)
+        expect(fileConverterService.converter).toBeCalledTimes(0)
     })
 })
