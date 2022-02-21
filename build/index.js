@@ -14,10 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fastify_1 = __importDefault(require("fastify"));
 const file_route_1 = require("./routes/file-route");
-const fastify_express_1 = __importDefault(require("fastify-express"));
+const fastify_cors_1 = __importDefault(require("fastify-cors"));
 const Port = process.env.PORT || 3000;
 const server = (0, fastify_1.default)({ logger: true });
-server.register(fastify_express_1.default);
+server.register(fastify_cors_1.default);
 server.register(file_route_1.fileRoute);
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {

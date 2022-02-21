@@ -1,12 +1,11 @@
 import  fastify, { FastifyInstance }  from 'fastify';
 import { fileRoute } from './routes/file-route'; 
-import fastifyExpress from 'fastify-express';
+import fastifyCors from 'fastify-cors';
 const Port:string | number = process.env.PORT || 3000;
 const server:FastifyInstance = fastify({logger :true})
 
-server.register(fastifyExpress)
+server.register(fastifyCors)
 server.register(fileRoute)
-
 const start = async () => {
     try {
         await server.listen(Port);

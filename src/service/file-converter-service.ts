@@ -4,7 +4,6 @@ const fs = require('fs').promises;
 const libre = require('libreoffice-convert');
 libre.convertAsync = require('util').promisify(libre.convert);
 
-
 class FileConverterService{
     async converter(fileDetails:string, fileType:string, targetType:string, fileName:string) {
         const ext:string ="."+targetType

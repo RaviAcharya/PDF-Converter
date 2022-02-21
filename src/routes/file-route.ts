@@ -1,8 +1,9 @@
 import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
 import * as fileHanlder from '../handler/file-handler'
-import cors from 'cors'
+import { validation } from "../security/authentication";
 
-const todo = {
+//PayLoad data types for schema
+const fileData = {
     type: 'object',
   properties: {
     fileDetails: {
@@ -19,9 +20,10 @@ const todo = {
   required : ["fileDetails"]
 } as const;
 
-const putFileOpt = {
+//
+const postFileOpt = {
     schema: {
-        body: todo,
+        body: fileData,
         response: {
           200: {type : 'string'}
           },
@@ -30,12 +32,12 @@ const putFileOpt = {
 }
 
  export function fileRoute(fastify:FastifyInstance, options:any, done:any){
-     fastify.addHook("onRequest", async()=>{
-     fastify.use(cors())    
+     fastify.addHook("preValidation", async(request:FastifyRequest, response:FastifyReply,done:any)=>{
+       await validation(request,response,done)
      })
-     fastify.post('/files',putFileOpt, async(request:FastifyRequest, response:FastifyReply)=>{
+
+     fastify.post('/files',postFileOpt, async(request:FastifyRequest, response:FastifyReply)=>{
        const result =  await fileHanlder.postController(request, response)
        response.send(result)
      })
-     done()
  }
