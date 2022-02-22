@@ -30,8 +30,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fileRoute = void 0;
 const fileHanlder = __importStar(require("../handler/file-handler"));
-const authentication_1 = require("../security/authentication");
-const todo = {
+//PayLoad data types for schema
+const fileData = {
     type: 'object',
     properties: {
         fileDetails: {
@@ -47,21 +47,43 @@ const todo = {
     },
     required: ["fileDetails"]
 };
-const putFileOpt = {
+//
+const postFileOpt = {
     schema: {
-        body: todo,
+        body: fileData,
         response: {
             200: { type: 'string' }
         },
     },
 };
+const queryStringSchema = {
+    type: 'object',
+    properties: {
+        docid: { type: 'string' }
+    },
+    required: ['docid']
+};
+const docresponseSchema = {
+    type: 'object',
+    properties: {}
+};
+const getDocOpt = {
+    schema: {
+        querystring: queryStringSchema,
+        response: {
+            200: docresponseSchema
+        },
+    }
+};
 function fileRoute(fastify, options, done) {
     fastify.addHook("preValidation", (request, response, done) => __awaiter(this, void 0, void 0, function* () {
-        yield (0, authentication_1.validation)(request, response, done);
+        //await validation(request,response,done)
     }));
-    fastify.post('/files', putFileOpt, (request, response) => __awaiter(this, void 0, void 0, function* () {
+    fastify.post('/files', postFileOpt, (request, response) => __awaiter(this, void 0, void 0, function* () {
         const result = yield fileHanlder.postController(request, response);
         response.send(result);
+    }));
+    fastify.get('/document-retrieval/byid/:docid', getDocOpt, (params) => __awaiter(this, void 0, void 0, function* () {
     }));
     done();
 }

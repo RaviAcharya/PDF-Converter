@@ -27,5 +27,10 @@ class FileConverterService {
             // Here in done you have pdf file which you can save or transfer in another stream
         });
     }
+    getDocumentDetailsService(documentId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log("In service");
+        });
+    }
 }
 exports.fileConverterService = new FileConverterService();

@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyPluginAsync, FastifyPluginOptions, FastifyReply, FastifyRequest } from "fastify";
-import fp from "fastify-plugin";
 import { tokenValidator } from "./tokenValidator";
 const byPassedRoutes = {
     migration : "migration"

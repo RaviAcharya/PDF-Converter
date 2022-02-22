@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postController = void 0;
+exports.getDocIdHandler = exports.postController = void 0;
 const file_converter_service_1 = require("../service/file-converter-service");
 const postController = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -50,3 +50,8 @@ const postController = (request, response) => __awaiter(void 0, void 0, void 0, 
     //response.send(result)
 });
 exports.postController = postController;
+const getDocIdHandler = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    const docId = request.body;
+    const documentId = docId;
+});
+exports.getDocIdHandler = getDocIdHandler;

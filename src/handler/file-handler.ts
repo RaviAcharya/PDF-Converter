@@ -10,6 +10,9 @@ interface FileData {
    }
 }
 
+interface DocIddata {
+      docid : string
+}
 export const postController = async(request:FastifyRequest, response:FastifyReply)=>{
       try{
       const fileData:any = request.body
@@ -49,4 +52,10 @@ export const postController = async(request:FastifyRequest, response:FastifyRepl
       }
       //response.send(result)
 
+}
+
+export const getDocIdHandler = async(request:FastifyRequest, response:FastifyReply)=>{
+      const docId = request.body
+      const documentId:DocIddata = docId as DocIddata
+      
 }

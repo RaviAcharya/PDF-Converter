@@ -15,5 +15,10 @@ class FileConverterService{
         return pdfBuf;
         // Here in done you have pdf file which you can save or transfer in another stream
     }
+
+    async getDocumentDetailsService(documentId:string){
+        console.log("In service");
+        
+    }
 }
 export let fileConverterService = new FileConverterService()
