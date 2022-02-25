@@ -9,17 +9,10 @@ interface FileData {
          targetType : string
    }
 }
-
+//this handler gets the converted document and sends it in the response
 export const postController = async(request:FastifyRequest, response:FastifyReply)=>{
       try{
       const fileData:any = request.body
-     // const fileType =request.body.fileDetails.fileType
-     // const targetType = request.body.fileDetails.targetType
-     // const fileName = request.body.fileDetails.fileName
-     // console.log(fileName)
-      //const result = await fileConverterService.converter(fileDetails.base as string, fileType, targetType, fileName)
-     // response.send(result)
-     
       const fileDataValue :FileData = fileData as FileData
       if(fileDataValue.fileDetails.base==undefined || fileDataValue.fileDetails.base==null || fileDataValue.fileDetails.base==""){
             let err:Error = Error("proper base value is required")
@@ -42,11 +35,33 @@ export const postController = async(request:FastifyRequest, response:FastifyRepl
       const fileNameValue : string = fileDataValue.fileDetails.fileName
       const fileTypevalue : string = fileDataValue.fileDetails.fileType
       const targetTypevalue : string = fileDataValue.fileDetails.targetType 
-      const result = await fileConverterService.converter(baseContent, fileTypevalue, targetTypevalue, fileNameValue)
+      const result = await fileConverterService.fileConverterService(baseContent, fileTypevalue, targetTypevalue, fileNameValue)
       return result
       } catch(error){
-           response.code(400).send(error)
+           response.code(500).send(error)
       }
-      //response.send(result)
+}
 
+
+interface IdocumentId {
+      documentId : number
+}
+//this handler gets the converted document and sends it in the response
+export const getDocIdHandler = async(request:FastifyRequest, response:FastifyReply)=>{
+      try{
+            const headerObject = request.headers
+         const docId:IdocumentId = request.params as IdocumentId
+         
+      if(docId.documentId== null || docId.documentId== undefined)
+      {
+            //response.status(400).send("required proper documentId")
+      }
+      else{
+            const result = await fileConverterService.fileConvertByIdService(headerObject,docId.documentId)
+            response.status(200).send(result)
+      }
+      }catch(error){
+            response.status(500).send(error)
+      }
+      
 }

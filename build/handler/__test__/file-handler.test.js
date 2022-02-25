@@ -23,9 +23,9 @@ describe("running test for file-handler", () => {
         let response = {};
         //let x:FastifyRequest = request as FastifyRequest
         //let y:FastifyReply = response as FastifyReply
-        file_converter_service_1.fileConverterService.converter = jest.fn().mockResolvedValue([0, 1, 1, 0]);
+        file_converter_service_1.fileConverterService.fileConverterService = jest.fn().mockResolvedValue([0, 1, 1, 0]);
         yield (0, file_handler_1.postController)(request, response);
-        expect(file_converter_service_1.fileConverterService.converter).toBeCalledTimes(1);
+        expect(file_converter_service_1.fileConverterService.fileConverterService).toBeCalledTimes(1);
     })),
         it("running test for post controller", () => __awaiter(void 0, void 0, void 0, function* () {
             //let bufferData:any = [0,1,2] ;
@@ -38,9 +38,9 @@ describe("running test for file-handler", () => {
             let response = {};
             //let x:FastifyRequest = request as FastifyRequest
             //let y:FastifyReply = response as FastifyReply
-            file_converter_service_1.fileConverterService.converter = jest.fn().mockResolvedValue([0, 1, 1, 0]);
+            file_converter_service_1.fileConverterService.fileConverterService = jest.fn().mockResolvedValue([0, 1, 1, 0]);
             yield (0, file_handler_1.postController)(request, response);
-            expect(file_converter_service_1.fileConverterService.converter).toBeCalledTimes(1);
+            expect(file_converter_service_1.fileConverterService.fileConverterService).toBeCalledTimes(1);
         })),
         it("running test for post controller", () => __awaiter(void 0, void 0, void 0, function* () {
             //let bufferData:any = [0,1,2] ;
@@ -53,10 +53,10 @@ describe("running test for file-handler", () => {
             let response = {};
             //let x:FastifyRequest = request as FastifyRequest
             //let y:FastifyReply = response as FastifyReply
-            file_converter_service_1.fileConverterService.converter = jest.fn().mockResolvedValue([0, 1, 1, 0]);
+            file_converter_service_1.fileConverterService.fileConverterService = jest.fn().mockResolvedValue([0, 1, 1, 0]);
             const res = yield (0, file_handler_1.postController)(request, response);
             console.log("In here", res);
             //expect(res.status).toBe(400)
-            expect(file_converter_service_1.fileConverterService.converter).toBeCalledTimes(0);
+            expect(file_converter_service_1.fileConverterService.fileConverterService).toBeCalledTimes(0);
         }));
 });

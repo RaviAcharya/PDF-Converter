@@ -14,9 +14,9 @@ describe("running test for file-handler", ()=>{
         let response:any = {}
         //let x:FastifyRequest = request as FastifyRequest
         //let y:FastifyReply = response as FastifyReply
-        fileConverterService.converter = jest.fn().mockResolvedValue([0,1,1,0])
+        fileConverterService.fileConverterService = jest.fn().mockResolvedValue([0,1,1,0])
         await postController(request , response)
-        expect(fileConverterService.converter).toBeCalledTimes(1)
+        expect(fileConverterService.fileConverterService).toBeCalledTimes(1)
     }),
     it("running test for post controller", async ()=>{
         //let bufferData:any = [0,1,2] ;
@@ -29,9 +29,9 @@ describe("running test for file-handler", ()=>{
         let response:any = {}
         //let x:FastifyRequest = request as FastifyRequest
         //let y:FastifyReply = response as FastifyReply
-        fileConverterService.converter = jest.fn().mockResolvedValue([0,1,1,0])
+        fileConverterService.fileConverterService = jest.fn().mockResolvedValue([0,1,1,0])
         await postController(request , response)
-        expect(fileConverterService.converter).toBeCalledTimes(1)
+        expect(fileConverterService.fileConverterService).toBeCalledTimes(1)
     }),
      it("running test for post controller", async ()=>{
         //let bufferData:any = [0,1,2] ;
@@ -44,10 +44,10 @@ describe("running test for file-handler", ()=>{
         let response:any = {}
         //let x:FastifyRequest = request as FastifyRequest
         //let y:FastifyReply = response as FastifyReply
-        fileConverterService.converter = jest.fn().mockResolvedValue([0,1,1,0])
+        fileConverterService.fileConverterService = jest.fn().mockResolvedValue([0,1,1,0])
         const res:any=await postController(request , response)
         console.log("In here",res)
         //expect(res.status).toBe(400)
-        expect(fileConverterService.converter).toBeCalledTimes(0)
+        expect(fileConverterService.fileConverterService).toBeCalledTimes(0)
     })
 })

@@ -28,16 +28,43 @@ const postFileOpt = {
           200: {type : 'string'}
           },
         },
+}
 
+const paramsSchema = {
+  type :'object',
+  properties : {
+     documentId : {type : 'number'}
+  },
+  required : ['documentId']
+  
+}
+
+const docresponseSchema = {
+  type : 'object',
+  properties : {
+    docBuffer : {type : 'object'},
+    docName : {type : 'string'}
+}
+}
+const getDocOpt = {
+  schema : {
+    params : paramsSchema,
+}
 }
 
  export function fileRoute(fastify:FastifyInstance, options:any, done:any){
      fastify.addHook("preValidation", async(request:FastifyRequest, response:FastifyReply,done:any)=>{
-       await validation(request,response,done)
+       //await validation(request,response,done)
      })
 
      fastify.post('/files',postFileOpt, async(request:FastifyRequest, response:FastifyReply)=>{
        const result =  await fileHanlder.postController(request, response)
+       console.log(result);
        response.send(result)
      })
+      
+     fastify.get('/document-retrieval/byid/:documentId',getDocOpt, async (request:FastifyRequest, response:FastifyReply) => {
+       await fileHanlder.getDocIdHandler(request,response)
+     })
+     done()
  }
