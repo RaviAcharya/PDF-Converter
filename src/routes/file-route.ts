@@ -30,26 +30,25 @@ const postFileOpt = {
         },
 }
 
-const queryStringSchema = {
+const paramsSchema = {
   type :'object',
   properties : {
-      docid : {type : 'string'}
+     documentId : {type : 'number'}
   },
-  required : ['docid']
+  required : ['documentId']
+  
 }
 
 const docresponseSchema = {
   type : 'object',
   properties : {
-    
+    docBuffer : {type : 'object'},
+    docName : {type : 'string'}
 }
 }
 const getDocOpt = {
   schema : {
-    querystring : queryStringSchema,
-    response : {
-      200 : docresponseSchema
-  },
+    params : paramsSchema,
 }
 }
 
@@ -60,11 +59,12 @@ const getDocOpt = {
 
      fastify.post('/files',postFileOpt, async(request:FastifyRequest, response:FastifyReply)=>{
        const result =  await fileHanlder.postController(request, response)
+       console.log(result);
        response.send(result)
      })
       
-     fastify.get('/document-retrieval/byid/:docid',getDocOpt, async (params:any) => {
-       
+     fastify.get('/document-retrieval/byid/:documentId',getDocOpt, async (request:FastifyRequest, response:FastifyReply) => {
+       await fileHanlder.getDocIdHandler(request,response)
      })
      done()
  }

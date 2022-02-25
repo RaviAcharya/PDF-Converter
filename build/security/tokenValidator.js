@@ -44,22 +44,27 @@ const verificationOptions = {
 };
 function getSigingKey(header, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        // keyClient.getSigningKey(header.kid, function(err:any, toke:JwksRsa.SigningKey){
-        //  console.log("header.kid===>",header.kid);
-        //  console.log("toke===>", toke);
-        //   const signingkey = toke.getPublicKey()
-        //   console.log(signingkey);
-        // next(null, signingKey);
-        //})
+        console.log(header.kid);
+        /* keyClient.getSigningKey(header.kid, function(err:any, toke:JwksRsa.SigningKey){
+            console.log("header.kid===>",header.kid);
+            console.log("toke===>", toke);
+            
+           const signingkey = toke.getPublicKey()
+           console.log(signingkey);
+           
+            next(null, signingkey);
+          
+        })*/
+        console.log("Header.kid==>", header.kid);
         const key = yield keyClient.getSigningKey(header.kid);
         console.log("key==>", key);
     });
 }
 const tokenValidator = (request, response) => {
     return new Promise((resolve, reject) => {
-        //console.log("In tokenValidator");
+        console.log("In tokenValidator");
         const authorization = request.headers.authorization;
-        console.log("auth-->", request.headers.authorization);
+        // console.log("auth-->",request.headers.authorization);
         validateToken(authorization, request).then((decoded) => {
             // request.decoded = decoded
             console.log("decoded", decoded);
@@ -71,9 +76,8 @@ const tokenValidator = (request, response) => {
 };
 exports.tokenValidator = tokenValidator;
 function validateToken(token, event) {
-    let signedKey = getSigingKey;
     return new Promise((resolve, reject) => {
-        jwt.verify(token, signedKey, verificationOptions, (err, decoded) => {
+        jwt.verify(token, getSigingKey, verificationOptions, (err, decoded) => {
             if (err) {
                 console.log("in veryfy", err);
                 reject(err);

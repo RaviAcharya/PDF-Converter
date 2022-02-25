@@ -56,23 +56,23 @@ const postFileOpt = {
         },
     },
 };
-const queryStringSchema = {
+const paramsSchema = {
     type: 'object',
     properties: {
-        docid: { type: 'string' }
+        documentId: { type: 'number' }
     },
-    required: ['docid']
+    required: ['documentId']
 };
 const docresponseSchema = {
     type: 'object',
-    properties: {}
+    properties: {
+        docBuffer: { type: 'object' },
+        docName: { type: 'string' }
+    }
 };
 const getDocOpt = {
     schema: {
-        querystring: queryStringSchema,
-        response: {
-            200: docresponseSchema
-        },
+        params: paramsSchema,
     }
 };
 function fileRoute(fastify, options, done) {
@@ -81,9 +81,11 @@ function fileRoute(fastify, options, done) {
     }));
     fastify.post('/files', postFileOpt, (request, response) => __awaiter(this, void 0, void 0, function* () {
         const result = yield fileHanlder.postController(request, response);
+        console.log(result);
         response.send(result);
     }));
-    fastify.get('/document-retrieval/byid/:docid', getDocOpt, (params) => __awaiter(this, void 0, void 0, function* () {
+    fastify.get('/document-retrieval/byid/:documentId', getDocOpt, (request, response) => __awaiter(this, void 0, void 0, function* () {
+        yield fileHanlder.getDocIdHandler(request, response);
     }));
     done();
 }

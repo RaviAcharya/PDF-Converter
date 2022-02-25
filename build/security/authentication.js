@@ -16,21 +16,20 @@ const byPassedRoutes = {
 };
 const validation = (request, response, done) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("In token Validation");
-        const validationTokenRequired = request.url;
-        console.log("token", validationTokenRequired);
-        const tokenValidationRequired = (0, exports.validateAndByPassRoutes)(validationTokenRequired, response);
+        const tokenValidationRequired = yield (0, exports.validateAndByPassRoutes)(request.url, response);
         if (tokenValidationRequired) {
-            console.log("in if");
+            console.log("Inside validation");
             yield (0, tokenValidator_1.tokenValidator)(request, response);
-            response.status(401).send("UNAUTHORISED Request");
+            done();
         }
         else {
+            done();
         }
     }
     catch (error) {
-        response.status(401).send("UNAUTHORISED Request");
+        response.status(401).send('Unauthorized Request');
     }
+    ;
 });
 exports.validation = validation;
 const validateAndByPassRoutes = (originalUrl, response) => __awaiter(void 0, void 0, void 0, function* () {
